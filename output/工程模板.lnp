@@ -30,6 +30,10 @@
 ".\output\light.o"
 ".\output\key.o"
 ".\output\wdg.o"
+".\output\sensirion_common.o"
+".\output\sensirion_sw_i2c.o"
+".\output\sgp30.o"
+".\output\sgp30_featureset.o"
 --strict --scatter ".\output\¹¤³ÌÄ£°å.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

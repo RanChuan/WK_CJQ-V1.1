@@ -147,7 +147,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>11</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -161,7 +161,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>STLink\ST-LINKIII-KEIL_SWO.dll</Driver>
+            <Driver>Segger\JL2CM3.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -359,13 +359,13 @@
             <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\user;.\APP;.\Libraries\STM32F10x_StdPeriph_Driver\inc;.\Libraries\CMSIS\CM3\CoreSupport;.\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x;.\APP\temhum;.\APP\collect;.\APP\TVOC;.\APP\PM2.5;.\APP\timeinter;.\APP\collect</IncludePath>
+              <IncludePath>.\user;.\APP;.\Libraries\STM32F10x_StdPeriph_Driver\inc;.\Libraries\CMSIS\CM3\CoreSupport;.\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x;.\APP\temhum;.\APP\collect;.\APP\TVOC;.\APP\PM2.5;.\APP\timeinter;.\APP\collect;.\SPG30</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -582,6 +582,31 @@
               <FileName>wdg.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\APP\wdg.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>SPG30</GroupName>
+          <Files>
+            <File>
+              <FileName>sensirion_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SPG30\sensirion_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>sensirion_sw_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SPG30\sensirion_sw_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>sgp30.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SPG30\sgp30.c</FilePath>
+            </File>
+            <File>
+              <FileName>sgp30_featureset.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SPG30\sgp30_featureset.c</FilePath>
             </File>
           </Files>
         </Group>

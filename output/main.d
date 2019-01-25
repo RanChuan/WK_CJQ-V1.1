@@ -42,3 +42,7 @@
 .\output\main.o: .\APP\light.h
 .\output\main.o: .\APP\key.h
 .\output\main.o: .\APP\wdg.h
+.\output\main.o: .\SPG30\sgp30.h
+.\output\main.o: .\SPG30\sensirion_arch_config.h
+.\output\main.o: .\SPG30\sensirion_common.h
+.\output\main.o: .\SPG30\sensirion_i2c.h

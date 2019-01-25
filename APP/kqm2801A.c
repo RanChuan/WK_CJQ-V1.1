@@ -1,6 +1,7 @@
 #include "kqm2801A.h"
 #include "myiic.h"
 #include "delay.h"
+#include "sgp30.h"
 
 u8 TvocValue[4]={0};   //保存返回的四个字节
 u8 TVOCValue[2]={0};   //保存TVOC数据
@@ -73,12 +74,21 @@ void Set_Resolution1(void)
 void Get_TVOC()
 {
 	float t=0;
-	
+	u16 ret=0;
+	u16 tvoc=0;
+	u16 co2=0;
 	t=KQM2801_Value(0x5F);
 	
 	if(t==0)
 	{
-		
+					//旧版TVOC传感器没有数据|没有传感器
+		ret=0;
+		ret=sgp_measure_iaq_blocking_read(&tvoc,&co2);
+		if (ret==0)
+		{
+			TVOCValue[0]=tvoc;
+			TVOCValue[1]=0;
+		}
 	}
 	else {
 		TVOCValue[0]=(u8)t;            //TVOC整数值

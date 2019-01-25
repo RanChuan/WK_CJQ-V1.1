@@ -13,6 +13,9 @@
 #include "light.h"
 #include "key.h"
 #include "wdg.h"
+#include "sgp30.h"
+#include "sensirion_i2c.h"
+
 /*****************************
 *串口一（串口四）用来于集中器进行通讯
 *串口三用来采集pm2.5和pm10
@@ -33,7 +36,13 @@ int main()
 	Key_Init ();
 	M0=0;
 	M1=0;
+	while(sgp_probe()!=STATUS_OK)
+	{
+		delay_ms(5);
+	}
+	
 	IWDG_Init(7,3140); 
+
 	
 	while(1){
 		IWDG_Feed();

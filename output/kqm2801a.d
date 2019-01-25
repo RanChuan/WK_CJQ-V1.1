@@ -32,3 +32,7 @@
 .\output\kqm2801a.o: .\APP\temhum\myiic.h
 .\output\kqm2801a.o: .\APP\sys.h
 .\output\kqm2801a.o: APP\delay.h
+.\output\kqm2801a.o: .\SPG30\sgp30.h
+.\output\kqm2801a.o: .\SPG30\sensirion_arch_config.h
+.\output\kqm2801a.o: .\SPG30\sensirion_common.h
+.\output\kqm2801a.o: .\SPG30\sensirion_i2c.h
