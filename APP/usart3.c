@@ -123,30 +123,41 @@ void get_data(void)
 {
 	u8 b[5]={0x11,0x02,0x0B,0x01,0xE1};
 	u8 r[]={0};
+	static u8 err_time=0;
 	int i;
 	u8 len;
-//	usart2_sendData(b,8);
-//	usart2_receiveData(r,&len);
 	if(Nowcount3>=100)
-	if (USART3_IDE)
 	{
-		for(i=0;i<MAX_RCV_LEN;i++)
+		if (USART3_IDE)
 		{
-			if(usart3_rcv_buf[i]==0x42)
+			for(i=0;i<MAX_RCV_LEN;i++)
 			{
-				if(usart3_rcv_buf[i+1]==0x4d)
+				if(usart3_rcv_buf[i]==0x42)
 				{
-					if(usart3_rcv_buf[i+3]==0x1C)
+					if(usart3_rcv_buf[i+1]==0x4d)
 					{
-						PM2_5_value=0;
-						PM2_5_value|=usart3_rcv_buf[i+6]<<8;
-						PM2_5_value|=usart3_rcv_buf[i+7];//PM2.5浓度，单位ug/m3
-						break;
+						if(usart3_rcv_buf[i+3]==0x1C)
+						{
+							PM2_5_value=0;
+							PM2_5_value|=usart3_rcv_buf[i+6]<<8;
+							PM2_5_value|=usart3_rcv_buf[i+7];//PM2.5浓度，单位ug/m3
+							break;
+						}
 					}
 				}
 			}
+			Nowcount3=0;
+			err_time=0;
 		}
-		Nowcount3=0;
+	}
+	else
+	{
+		err_time++;
+		if (err_time>=5)
+		{
+			err_time--;
+			PM2_5_value=0;
+		}
 	}
 }
 

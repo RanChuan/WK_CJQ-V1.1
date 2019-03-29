@@ -5,7 +5,7 @@
 
 u8 TvocValue[4]={0};   //保存返回的四个字节
 u8 TVOCValue[2]={0};   //保存TVOC数据
-
+u8 CO2Value[2]={0};		//二氧化碳值
 //u8 a[4]={0};
 float KQM2801_Value(char whatdo) //0x5F:TVOC
 {
@@ -86,8 +86,19 @@ void Get_TVOC()
 		ret=sgp_measure_iaq_blocking_read(&tvoc,&co2);
 		if (ret==0)
 		{
-			TVOCValue[0]=tvoc;
-			TVOCValue[1]=0;
+			TVOCValue[0]=tvoc/1000;
+			TVOCValue[1]=(tvoc/100)%10;
+			CO2Value[0]=co2>>8;
+			CO2Value[1]=co2;
+			if ((TVOCValue[0]==0)&&(TVOCValue[1]==0))
+				TVOCValue[1]=1;
+		}
+		else
+		{
+			TVOCValue[0]=0;
+			TVOCValue[0]=0;
+			CO2Value[0]=0;
+			CO2Value[1]=0;
 		}
 	}
 	else {

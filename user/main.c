@@ -23,6 +23,7 @@
 
 int main()
 {
+	u8 sgp_state=0;
 	NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x2800);
 	NVIC_Configuration();
 	delay_init();
@@ -36,9 +37,9 @@ int main()
 	Key_Init ();
 	M0=0;
 	M1=0;
-	while(sgp_probe()!=STATUS_OK)
+	if (sgp_probe()==STATUS_OK)
 	{
-		delay_ms(5);
+		sgp_state=1;
 	}
 	
 	IWDG_Init(7,3140); 
@@ -49,6 +50,13 @@ int main()
 		collectdeal();
 		delay_ms(20);
 		deal();
+		if (sgp_state==0)
+		{
+			if (sgp_probe()==STATUS_OK)
+			{
+				sgp_state=1;
+			}
+		}
 	}
 	return 0;
 }
