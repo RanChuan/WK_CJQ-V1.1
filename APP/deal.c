@@ -126,13 +126,13 @@ void cmd_0x09 (u8 *buff)
 
 void cmd_0x01(u8 *recv)
 { 
-	u8 data[40]={0};
-	u8 velues[25]={0};
+	u8 data[50]={0};
+	u8 velues[40]={0};
 	u8 crc[2]={0};
 	u8 i=0;
 	u8 wantlenth=(recv[7]<<8)|recv[8];
-	extern u16 PM2_5_value;
-	extern u8 CO2Value[2];
+	extern u8 PM2_5_value[4];
+	extern u8 CO2Value[4];
 	data[0]=0xff;
 	data[1]=0xff;
 	data[2]=collectId>>8;
@@ -140,7 +140,7 @@ void cmd_0x01(u8 *recv)
 	data[4]=0x01|0x80;
 	
 	
-	if (wantlenth>20)//超出最大长度
+	if (wantlenth>30)//超出最大长度
 	{
 		wantlenth=2;
 		data[5]=0;
@@ -164,37 +164,54 @@ void cmd_0x01(u8 *recv)
 		//	velues[6]=RUN_TIME_S>>8;
 		//	velues[7]=RUN_TIME_S;
 		velues[8]=3;//传感器个数
+		
+		
+		
 		velues[9]=0;//传感器故障
-		
-		
-		
 		//添加传感器故障个数
-		if ((TempAndHumi[0]==0&&TempAndHumi[1]==0)&&(TempAndHumi[2]==0)&&(TempAndHumi[3]==0))
+		if ((TempAndHumi[0]==0&&TempAndHumi[1]==0&&TempAndHumi[2]==0&&TempAndHumi[3]==0)&&
+			(TempAndHumi[4]==0)&&(TempAndHumi[5]==0)&&(TempAndHumi[6]==0)&&(TempAndHumi[7]==0))
 		{
 			velues[9]++;
 		}
-		if (TVOCValue[0]==0&&TVOCValue[1]==0)
-		{
-			velues[9]++;
-		}
-		if (PM2_5_value==0)
+		if ((TVOCValue[0]==0&&TVOCValue[1]==0)&&(TVOCValue[2]==0&&TVOCValue[3]==0))
 		{
 			velues[9]++;
 		}
 		
+		if ((PM2_5_value[0]==0)&&(PM2_5_value[1]==0)&&(PM2_5_value[2]==0)&&(PM2_5_value[3]==0))
+		{
+			velues[9]++;
+		}
 		
 		
 		
-		velues[10]=TempAndHumi[0];//温度整数
-		velues[11]=TempAndHumi[1];//温度小数
-		velues[12]=TempAndHumi[2];//湿度整数
-		velues[13]=TempAndHumi[3];//湿度小数
-		velues[14]=TVOCValue[0];
-		velues[15]=TVOCValue[1];
-		velues[16]=PM2_5_value>>8;	//pm2.5高8位
-		velues[17]=PM2_5_value;			//pm2.5低8位
-		velues[18]=CO2Value[0];			//co2
-		velues[19]=CO2Value[1];			//co2低8位
+		
+		velues[10]=TempAndHumi[0];//温度
+		velues[11]=TempAndHumi[1];//
+		velues[12]=TempAndHumi[2];//
+		velues[13]=TempAndHumi[3];//
+		
+		velues[14]=TempAndHumi[4];//湿度
+		velues[15]=TempAndHumi[5];//
+		velues[16]=TempAndHumi[6];//
+		velues[17]=TempAndHumi[7];//
+
+		velues[18]=TVOCValue[0];	//tvoc
+		velues[19]=TVOCValue[1];
+		velues[20]=TVOCValue[2];
+		velues[21]=TVOCValue[3];
+
+		velues[22]=CO2Value[0];			//co2
+		velues[23]=CO2Value[1];			//
+		velues[24]=CO2Value[2];			//
+		velues[25]=CO2Value[3];			//
+		
+		velues[26]=PM2_5_value[0];
+		velues[27]=PM2_5_value[1];
+		velues[28]=PM2_5_value[2];
+		velues[29]=PM2_5_value[3];
+		
 		for(i=0;i<wantlenth;i++)
 		{
 			data[7+i]=velues[i];

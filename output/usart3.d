@@ -32,3 +32,9 @@
 .\output\usart3.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 .\output\usart3.o: .\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 .\output\usart3.o: APP\delay.h
+.\output\usart3.o: .\APP\TVOC\data.h
+.\output\usart3.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\output\usart3.o: .\APP\temhum\sht21.h
+.\output\usart3.o: .\APP\TVOC\tvoc.h
+.\output\usart3.o: .\APP\temhum\myiic.h
+.\output\usart3.o: .\APP\TVOC\data.h

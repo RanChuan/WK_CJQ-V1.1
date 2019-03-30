@@ -1,7 +1,9 @@
 #include "usart3.h"	
 #include "delay.h"
+#include "data.h"
 
-u16 PM2_5_value=0;
+
+u8 PM2_5_value[4]={0};
 //u8 TVOC_value[4];
 unsigned char  usart3_rcv_buf[MAX_RCV_LEN];
 volatile unsigned int   usart3_rcv_len = 0;
@@ -126,6 +128,7 @@ void get_data(void)
 	static u8 err_time=0;
 	int i;
 	u8 len;
+	f_to_u t={0};
 	if(Nowcount3>=100)
 	{
 		if (USART3_IDE)
@@ -138,9 +141,18 @@ void get_data(void)
 					{
 						if(usart3_rcv_buf[i+3]==0x1C)
 						{
-							PM2_5_value=0;
-							PM2_5_value|=usart3_rcv_buf[i+6]<<8;
-							PM2_5_value|=usart3_rcv_buf[i+7];//PM2.5浓度，单位ug/m3
+							PM2_5_value[0]=0;
+							PM2_5_value[1]=0;
+							PM2_5_value[2]=0;
+							PM2_5_value[3]=0;
+							t.f=((usart3_rcv_buf[i+6]<<8)|usart3_rcv_buf[i+7])/1000.0;
+							//PM2_5_value|=usart3_rcv_buf[i+6]<<8;
+							//PM2_5_value|=usart3_rcv_buf[i+7];//PM2.5浓度，单位ug/m3
+														//转换为浮点数2019.3.30
+							PM2_5_value	[0]=t.u[0];
+							PM2_5_value	[1]=t.u[1];
+							PM2_5_value	[2]=t.u[2];
+							PM2_5_value	[3]=t.u[3];
 							break;
 						}
 					}
@@ -156,7 +168,10 @@ void get_data(void)
 		if (err_time>=5)
 		{
 			err_time--;
-			PM2_5_value=0;
+			PM2_5_value[0]=0;
+			PM2_5_value[1]=0;
+			PM2_5_value[2]=0;
+			PM2_5_value[3]=0;
 		}
 	}
 }

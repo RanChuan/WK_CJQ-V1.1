@@ -1,8 +1,9 @@
 #include "sht21.h"
 #include "myiic.h"
 #include "delay.h"
+#include "data.h"
 
-u8 TempAndHumi[4]={0};
+u8 TempAndHumi[8]={0};
 float SHT2X_MeasureNHM(char whatdo) //0xF3:温度测量， 0xF5:湿度测量， 都是非主机
 {
 	float Humidity,Temperature;
@@ -76,13 +77,18 @@ void Set_Resolution(void)
   */
 void Get_TempAmdHumi()
 {
-	float t=0;
+	f_to_u t={0};
 	
-	t=SHT2X_MeasureNHM(0xF3);
-	TempAndHumi[0]=(u8)t;
-	TempAndHumi[1]=((u8)(t*10))%10;
-	t=SHT2X_MeasureNHM(0xF5);
-	TempAndHumi[2]=(u8)t;
-	TempAndHumi[3]=((u8)(t*10))%10;
+	t.f=SHT2X_MeasureNHM(0xF3);		//上传浮点数2019.3.30
+	TempAndHumi[0]=t.u[0];
+	TempAndHumi[1]=t.u[1];
+	TempAndHumi[2]=t.u[2];
+	TempAndHumi[3]=t.u[3];
+	t.f=SHT2X_MeasureNHM(0xF5);
+	TempAndHumi[4]=t.u[0];
+	TempAndHumi[5]=t.u[1];
+	TempAndHumi[6]=t.u[2];
+	TempAndHumi[7]=t.u[3];
+
 }
 

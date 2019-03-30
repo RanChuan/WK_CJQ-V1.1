@@ -1,11 +1,12 @@
 #include "kqm2801A.h"
 #include "myiic.h"
 #include "delay.h"
+#include "data.h"
 #include "sgp30.h"
 
 u8 TvocValue[4]={0};   //保存返回的四个字节
-u8 TVOCValue[2]={0};   //保存TVOC数据
-u8 CO2Value[2]={0};		//二氧化碳值
+u8 TVOCValue[4]={0};   //保存TVOC数据
+u8 CO2Value[4]={0};		//二氧化碳值
 //u8 a[4]={0};
 float KQM2801_Value(char whatdo) //0x5F:TVOC
 {
@@ -73,37 +74,52 @@ void Set_Resolution1(void)
 
 void Get_TVOC()
 {
-	float t=0;
+	f_to_u t={0};
 	u16 ret=0;
 	u16 tvoc=0;
 	u16 co2=0;
-	t=KQM2801_Value(0x5F);
+	t.f=KQM2801_Value(0x5F);
 	
-	if(t==0)
+	if(t.f==0)
 	{
 					//旧版TVOC传感器没有数据|没有传感器
 		ret=0;
 		ret=sgp_measure_iaq_blocking_read(&tvoc,&co2);
 		if (ret==0)
 		{
-			TVOCValue[0]=tvoc/1000;
-			TVOCValue[1]=(tvoc/100)%10;
-			CO2Value[0]=co2>>8;
-			CO2Value[1]=co2;
-			if ((TVOCValue[0]==0)&&(TVOCValue[1]==0))
-				TVOCValue[1]=1;
+			t.f=tvoc/1000.0;								//改为浮点数2019.3.30
+			if (t.f<0.1) t.f=0.1;
+			TVOCValue[0]=t.u[0];
+			TVOCValue[1]=t.u[1];
+			TVOCValue[2]=t.u[2];
+			TVOCValue[3]=t.u[3];
+			t.f=co2;
+			CO2Value[0]=t.u[0];
+			CO2Value[1]=t.u[1];
+			CO2Value[2]=t.u[2];
+			CO2Value[3]=t.u[3];
 		}
 		else
 		{
 			TVOCValue[0]=0;
-			TVOCValue[0]=0;
+			TVOCValue[1]=0;
+			TVOCValue[2]=0;
+			TVOCValue[3]=0;
 			CO2Value[0]=0;
 			CO2Value[1]=0;
+			CO2Value[2]=0;
+			CO2Value[3]=0;
 		}
 	}
-	else {
-		TVOCValue[0]=(u8)t;            //TVOC整数值
-		TVOCValue[1]=((u8)(t*10))%10;  //TVOC小数值
+	else {															//改为浮点数2019.3.30
+		TVOCValue[0]=t.u[0];            
+		TVOCValue[1]=t.u[1];  					
+		TVOCValue[2]=t.u[2];            
+		TVOCValue[3]=t.u[3];  					
+		CO2Value[0]=0;            
+		CO2Value[1]=0;  					
+		CO2Value[2]=0;            
+		CO2Value[3]=0;  					
 	}
 
 

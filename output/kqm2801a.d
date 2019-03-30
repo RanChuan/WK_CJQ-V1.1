@@ -32,6 +32,13 @@
 .\output\kqm2801a.o: .\APP\temhum\myiic.h
 .\output\kqm2801a.o: .\APP\sys.h
 .\output\kqm2801a.o: APP\delay.h
+.\output\kqm2801a.o: .\APP\TVOC\data.h
+.\output\kqm2801a.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\output\kqm2801a.o: .\APP\temhum\sht21.h
+.\output\kqm2801a.o: .\APP\usart3.h
+.\output\kqm2801a.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\kqm2801a.o: .\APP\TVOC\tvoc.h
+.\output\kqm2801a.o: .\APP\TVOC\data.h
 .\output\kqm2801a.o: .\SPG30\sgp30.h
 .\output\kqm2801a.o: .\SPG30\sensirion_arch_config.h
 .\output\kqm2801a.o: .\SPG30\sensirion_common.h

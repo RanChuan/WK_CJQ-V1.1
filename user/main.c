@@ -45,7 +45,8 @@ int main()
 	IWDG_Init(7,3140); 
 
 	
-	while(1){
+	while(1)
+	{
 		IWDG_Feed();
 		collectdeal();
 		delay_ms(20);

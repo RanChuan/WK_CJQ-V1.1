@@ -32,3 +32,9 @@
 .\output\sht21.o: APP\temhum\myiic.h
 .\output\sht21.o: .\APP\sys.h
 .\output\sht21.o: .\APP\delay.h
+.\output\sht21.o: .\APP\TVOC\data.h
+.\output\sht21.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\output\sht21.o: .\APP\usart3.h
+.\output\sht21.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\sht21.o: .\APP\TVOC\tvoc.h
+.\output\sht21.o: .\APP\TVOC\data.h

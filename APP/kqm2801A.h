@@ -4,7 +4,7 @@
 #include "stm32f10x.h"
 
 extern u8 TvocValue[4];
-extern u8 TVOCValue[2];   //保存TVOC数据
+extern u8 TVOCValue[4];   //保存TVOC数据
 
 float KQM2801_Value(char whatdo);
 void Get_TVOC();

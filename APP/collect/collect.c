@@ -47,45 +47,6 @@ void collectdeal(void)
 	}
 }
 
-void returnEnvironmentData(u8 address)   
-{
-	    u8 crc[2];
-			u8 collectData[30];
-
-//			u8 pmInt = (u8)pm;
-//			u8 pmB = pmInt/100;
-//			u8 pmSG = pmInt%100;
-//			u8 pmX = (u8)(pm*10)%10;
-
-	
-			collectData[0]=0xff;
-			collectData[1]=0xff;
-			collectData[2]=0x00;  //地址位
-			collectData[3]=address;  //地址位
-			collectData[4]=0x03;
-			collectData[5]=0x00;
-			collectData[6]=0x09;
-//			collectData[8]=50;
-//			collectData[9]=2;
-//			collectData[10]=80;
-//			collectData[11]=6;
-			collectData[7]=TempAndHumi[0];
-			collectData[8]=TempAndHumi[1];
-			collectData[9]=TempAndHumi[2];
-			collectData[10]=TempAndHumi[3];
-			collectData[11]=0;             //pmB;
-			collectData[12]=0;            //pmSG;
-			collectData[13]=0;             //pmX;
-			collectData[14]=TVOCValue[0];            
-			collectData[15]=TVOCValue[1];             
-			Get_Crc16(collectData,16,crc);
-			collectData[16]=crc[0];
-			collectData[17]=crc[1];
-					
-		//	usart1_sendData(collectData,18);
-		
-}
-
 
 
 void Nothing(void)
