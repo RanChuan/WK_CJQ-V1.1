@@ -41,10 +41,13 @@ void deal(void)
 					case 0x01:
 						cmd_0x01(recv);
 						break;
+					case 0x04:
+						cmd_0x04(recv);
+						break;
 					case 0x06:
 						cmd_0x06(recv);
 						break;
-					case 0x07:
+					case 0x07: 
 						cmd_0x07(recv);
 						break;
 					case 0x09:
@@ -57,6 +60,108 @@ void deal(void)
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+//获取指定内存地址的值0,成功，1，失败
+u32 getMemValue (u8 *buff,u32 addr,u16 len)
+{
+	#if OS_CRITICAL_METHOD == 3          /* Allocate storage for CPU status register */
+		OS_CPU_SR  cpu_sr;
+	#endif
+	u8 *base_addr=(u8 *)addr;
+	if (base_addr==0) return 1;
+	//OS_ENTER_CRITICAL();
+	while(len--)
+	{
+		*buff++=*base_addr++;
+	}
+	//OS_EXIT_CRITICAL();
+	return 0;
+}
+
+
+
+u32 setMemValue (u8 *buff,u32 addr,u16 len)
+{
+	#if OS_CRITICAL_METHOD == 3          /* Allocate storage for CPU status register */
+		OS_CPU_SR  cpu_sr;
+	#endif
+	u8 *base_addr=(u8 *)addr;
+	if (base_addr==0) return 1;
+	//OS_ENTER_CRITICAL();
+	while(len--)
+	{
+		*base_addr++=*buff++;
+	}
+	//OS_EXIT_CRITICAL();
+	return 0;
+}
+
+
+
+
+
+#include "string.h"
+
+
+void cmd_0x04 (u8 *recv)
+{
+	u32 addr;
+	u16 datalen=(recv[12]<<8)|recv[13];
+	u8 data[58]={0};
+	u8 crc[2]={0};
+	data[0]=0xff;
+	data[1]=0xff;
+	data[2]=collectId>>8;
+	data[3]=collectId;
+	data[4]=recv[4]|0x80;
+	data[5]=(datalen+2)>>8;
+	data[6]=datalen+2;
+	data[7]=0;	//默认是成功
+	data[8]=0;
+	if (datalen>58-12) //重新调整数据长度
+	{
+		datalen=58-12;
+	}
+	addr=(recv[8]<<24)|(recv[9]<<16)|(recv[10]<<8)|recv[11];
+	
+	if (recv[7]==0)//读
+	{
+		memcpy (&data[9],(u8 *)addr,datalen);
+		
+		Get_Crc16(data,7+(datalen+2),crc);
+		data[7+(datalen+2)]=crc[0];
+		data[7+(datalen+2)+1]=crc[1];
+		RF1_tx_bytes(data,7+(datalen+2)+2);//发送返回数据
+	}
+	else if (recv[7]==1)//写
+	{
+		u16 wdatalen=(recv[5]<<8)|recv[6];
+		wdatalen-=5;
+		memcpy ((u8 *)addr,&recv[12],datalen);
+		Return_NEW(recv[4],ERR_SUCCESS);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 void cmd_0x06(u8 * buff)
@@ -124,6 +229,10 @@ void cmd_0x09 (u8 *buff)
 
 
 
+
+#include "data_map.h"
+
+
 void cmd_0x01(u8 *recv)
 { 
 	u8 data[50]={0};
@@ -159,10 +268,10 @@ void cmd_0x01(u8 *recv)
 					//数据位
 		velues[2]=0x01;//本机类型
 		velues[3]=1;//是否在工作
-		//	velues[4]=RUN_TIME_S>>24;
-		//	velues[5]=RUN_TIME_S>>16;
-		//	velues[6]=RUN_TIME_S>>8;
-		//	velues[7]=RUN_TIME_S;
+			velues[4]=DATA_MAP->sysRunTime>>24;
+			velues[5]=DATA_MAP->sysRunTime>>16;
+			velues[6]=DATA_MAP->sysRunTime>>8;
+			velues[7]=DATA_MAP->sysRunTime>>0;
 		velues[8]=3;//传感器个数
 		
 		

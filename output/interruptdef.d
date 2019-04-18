@@ -33,3 +33,4 @@
 .\output\interruptdef.o: .\APP\sys.h
 .\output\interruptdef.o: .\APP\collect\collect.h
 .\output\interruptdef.o: .\APP\temhum\sht21.h
+.\output\interruptdef.o: .\APP\DATA_MAP\data_map.h

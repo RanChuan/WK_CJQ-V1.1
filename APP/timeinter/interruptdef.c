@@ -64,21 +64,16 @@ void time3_init(u8 config,u16 ms)			//config:ENABLE 使能   DISABLE 失能
 
 
 
-////time2中断
-//void TIM2_IRQHandler(void)
-//{
-//	
-//	TIM_ClearITPendingBit(TIM2,TIM_IT_Update);
+#include "data_map.h"
 
-//		
-//}
+
 
 //time3中断
 void TIM3_IRQHandler(void)
 {
 	
 	TIM_ClearITPendingBit(TIM3,TIM_IT_Update);
-
+	DATA_MAP->sysRunTime++;
  	time3_count++;
 	time3_flag++;
 	

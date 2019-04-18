@@ -47,3 +47,4 @@
 .\output\collect.o: .\APP\deal.h
 .\output\collect.o: .\APP\usart1.h
 .\output\collect.o: .\APP\kqm2801A.h
+.\output\collect.o: .\APP\DATA_MAP\data_map.h

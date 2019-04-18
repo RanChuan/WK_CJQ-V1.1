@@ -30,6 +30,7 @@ extern u16 dataBuffer[20];
 #define SIZE sizeof(dataBuffer/2)	 			  	//数组长度
 
 void cmd_0x01 (u8 *recv);
+void cmd_0x04 (u8 *recv);
 void cmd_0x06 (u8 *buff);
 void cmd_0x07 (u8 *buff);
 void cmd_0x09 (u8 *buff);

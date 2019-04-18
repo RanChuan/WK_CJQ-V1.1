@@ -30,6 +30,7 @@
 ".\output\light.o"
 ".\output\key.o"
 ".\output\wdg.o"
+".\output\data_map.o"
 ".\output\sensirion_common.o"
 ".\output\sensirion_sw_i2c.o"
 ".\output\sgp30.o"

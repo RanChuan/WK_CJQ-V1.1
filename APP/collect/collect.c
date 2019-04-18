@@ -12,6 +12,9 @@
 #include "tvoc.h"
 #include "kqm2801A.h"
 
+#include "data_map.h"
+
+
 
 u8 collectNumber=1;	//采集器总数量
 u8 centerNumber=1;	//集中器总数量
@@ -26,13 +29,13 @@ void addressIdinit(void)
 	flash_Read(FLASH_SAVE_ADDR,&t,1);
 	if((t&0XFFFF)!=0xFFFF)  //判断是否配置过   配置过  flash在没有数据的时候是0xff
 	{
-//		collectId=dataBuffer[0];
 		collectId=t;
 	}
 	else 
 	{
 		Nothing();
 	}
+	DATA_MAP->devAddr=collectId; 
 }
 
 

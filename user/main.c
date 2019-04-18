@@ -16,6 +16,12 @@
 #include "sgp30.h"
 #include "sensirion_i2c.h"
 
+
+#include "data_map.h"
+ 
+
+
+
 /*****************************
 *串口一（串口四）用来于集中器进行通讯
 *串口三用来采集pm2.5和pm10
@@ -26,6 +32,7 @@ int main()
 	u8 sgp_state=0;
 	NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x2800);
 	NVIC_Configuration();
+	data_map_init();
 	delay_init();
 	USART3_Init(9600);
 	IIC_Init();
@@ -33,6 +40,8 @@ int main()
 	time3_init(ENABLE,1000);//每1s加一个计数
 	LED_Init();
 	addressIdinit();
+	
+	
 	Light_Init();
 	Key_Init ();
 	M0=0;

@@ -46,3 +46,4 @@
 .\output\main.o: .\SPG30\sensirion_arch_config.h
 .\output\main.o: .\SPG30\sensirion_common.h
 .\output\main.o: .\SPG30\sensirion_i2c.h
+.\output\main.o: .\APP\DATA_MAP\data_map.h

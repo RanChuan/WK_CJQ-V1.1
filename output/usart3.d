@@ -38,3 +38,4 @@
 .\output\usart3.o: .\APP\TVOC\tvoc.h
 .\output\usart3.o: .\APP\temhum\myiic.h
 .\output\usart3.o: .\APP\TVOC\data.h
+.\output\usart3.o: .\APP\DATA_MAP\data_map.h

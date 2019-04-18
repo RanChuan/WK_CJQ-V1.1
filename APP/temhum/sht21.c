@@ -71,6 +71,10 @@ void Set_Resolution(void)
 	}
 }
 
+
+
+
+#include "data_map.h"
 /*********获取温湿度
   * 高两个字节放温度
   * 低两个字节放湿度
@@ -84,11 +88,13 @@ void Get_TempAmdHumi()
 	TempAndHumi[1]=t.u[1];
 	TempAndHumi[2]=t.u[2];
 	TempAndHumi[3]=t.u[3];
+	DATA_MAP->temperature=t.f;
+	
 	t.f=SHT2X_MeasureNHM(0xF5);
 	TempAndHumi[4]=t.u[0];
 	TempAndHumi[5]=t.u[1];
 	TempAndHumi[6]=t.u[2];
 	TempAndHumi[7]=t.u[3];
-
+	DATA_MAP->humidity=t.f;
 }
 

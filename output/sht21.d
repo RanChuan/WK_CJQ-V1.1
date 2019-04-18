@@ -38,3 +38,4 @@
 .\output\sht21.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\output\sht21.o: .\APP\TVOC\tvoc.h
 .\output\sht21.o: .\APP\TVOC\data.h
+.\output\sht21.o: .\APP\DATA_MAP\data_map.h

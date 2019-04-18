@@ -70,6 +70,9 @@ void Set_Resolution1(void)
 	}
 }
 
+
+
+#include "data_map.h"
 /*********获取TVOC**********/
 
 void Get_TVOC()
@@ -93,11 +96,13 @@ void Get_TVOC()
 			TVOCValue[1]=t.u[1];
 			TVOCValue[2]=t.u[2];
 			TVOCValue[3]=t.u[3];
+			DATA_MAP->tvoc=t.f;
 			t.f=co2;
 			CO2Value[0]=t.u[0];
 			CO2Value[1]=t.u[1];
 			CO2Value[2]=t.u[2];
 			CO2Value[3]=t.u[3];
+			DATA_MAP->co2=t.f;
 		}
 		else
 		{
@@ -109,6 +114,8 @@ void Get_TVOC()
 			CO2Value[1]=0;
 			CO2Value[2]=0;
 			CO2Value[3]=0;
+			DATA_MAP->tvoc=0;
+			DATA_MAP->co2=0;
 		}
 	}
 	else {															//改为浮点数2019.3.30
@@ -116,10 +123,12 @@ void Get_TVOC()
 		TVOCValue[1]=t.u[1];  					
 		TVOCValue[2]=t.u[2];            
 		TVOCValue[3]=t.u[3];  					
+		DATA_MAP->tvoc=t.f;
 		CO2Value[0]=0;            
 		CO2Value[1]=0;  					
 		CO2Value[2]=0;            
-		CO2Value[3]=0;  					
+		CO2Value[3]=0;  
+		DATA_MAP->co2=0;
 	}
 
 

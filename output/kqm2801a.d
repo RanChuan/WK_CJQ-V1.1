@@ -43,3 +43,4 @@
 .\output\kqm2801a.o: .\SPG30\sensirion_arch_config.h
 .\output\kqm2801a.o: .\SPG30\sensirion_common.h
 .\output\kqm2801a.o: .\SPG30\sensirion_i2c.h
+.\output\kqm2801a.o: .\APP\DATA_MAP\data_map.h

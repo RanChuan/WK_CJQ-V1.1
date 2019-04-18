@@ -118,7 +118,7 @@ void USART3_IRQHandler(void)
 	}
 }	
 
-
+#include "data_map.h"
 
 //查询得到数据
 void get_data(void)
@@ -153,6 +153,7 @@ void get_data(void)
 							PM2_5_value	[1]=t.u[1];
 							PM2_5_value	[2]=t.u[2];
 							PM2_5_value	[3]=t.u[3];
+							DATA_MAP->pm2_5=t.f;
 							break;
 						}
 					}
@@ -172,6 +173,7 @@ void get_data(void)
 			PM2_5_value[1]=0;
 			PM2_5_value[2]=0;
 			PM2_5_value[3]=0;
+			DATA_MAP->pm2_5=0;
 		}
 	}
 }

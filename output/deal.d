@@ -43,3 +43,5 @@
 .\output\deal.o: APP\kqm2801A.h
 .\output\deal.o: APP\delay.h
 .\output\deal.o: .\APP\PM2.5\zph_01.h
+.\output\deal.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\output\deal.o: .\APP\DATA_MAP\data_map.h
